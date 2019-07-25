@@ -1,0 +1,77 @@
+@()
+
+@main("TOTEM - About") {
+@header()
+
+<div class="container">
+  <div class="cuerpo">
+  
+    <h2>About</h2>
+  
+    <div class="space"></div>
+  	<h4>Cite TOTEM</h4>
+  	<p>
+  	Lozano-Elena, F., Vera, G. and Caño-Delgado, A.I. (2019) TOTEM: A web TOol for Tissue Enrichment on gene lists. 
+  	Manuscript under revision.
+  	</p>
+  	
+  	
+  	<div class="space"></div>
+  	<h4>Source code:</h4>
+  	<p>
+  	  TOTEM source code can be downloaded, reused and modified according to the GNU LGPL v2.1 license. 
+  	  <br/>
+  	  The code can be found here: 
+  	  <a href="https://github.com/cragenomica/totem">github.com/cragenomica/totem</a>
+  	</p>
+  	<p>
+  	  Part of the TOTEM code is based on the following publication:
+  	  <br>
+  	  Rafael-Palou, X. et al. (2012) SVGMap: Configurable image browser for experimental data. Bioinformatics; 28, 119-120
+  	</p> 
+  
+  	<div class="space"></div>
+  	<h4>Your organism of interest is not available?</h4>
+  	<p>
+  	  TOTEM has been designed as a modular tool. Potentially any experiment containing tissue-specific data 
+  	  (or identifying a set of tissue-specific genes) can be added without major code changes. If you would like TOTEM
+  	  to incorporate a specific experiment/organism, we encourage you to send us a brief description of your proposal,
+  	  the paper describing the experiment and a draft drawing (preferentially in a SVG format).
+  	</p> 
+  	
+  	<div class="space"></div>
+  	<h4>Disclaimer</h4>
+    <p>
+      The generated image is merely a visual representation and it may not depict all tissues examined in the cited experiment.
+      It is the barplot which contains the actual enrichment scores for all tissues of the experiment.
+      With TOTEM we only try to facilitate the comparison with published spatio-temporal expression data.
+      Our criteria to define tissue-enriched genes may not satisfy all necessities, thus conclusions should 
+      be drawn at the risk of the users.
+    </p>  
+    
+    <div class="row">
+      <div class="col-sm-6">
+        <img src="@routes.Assets.versioned("images/CRAG-building.jpg")" class="img-fluid">
+      </div>
+      
+      <div class="col-sm-6">
+        <h4>Contact</h4>
+        <span>CRAG Building, Campus UAB.</span>
+        <br/>
+        <span>08193 Cerdanyola del Vall&eacute;s (Barcelona), Spain.</span>
+        <br/>
+        <span>Tel. +34 935636600</span>
+        
+        <div class="space"></div>
+        <span>Suggestions and comments should be addressed to:</span>
+        <a href="mailto:fidel.lozano&#64;cragenomica.es">fidel.lozano&#64;cragenomica.es</a>
+      </div>
+    </div>
+    
+    <div class="space"></div>
+  
+  </div>
+</div>
+
+@footer()
+}

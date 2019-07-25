@@ -1,0 +1,290 @@
+@(
+experimentID: String,
+queryName: String,
+colorSVG: String,
+colorBarplot: String,
+formulario: play.data.Form[ExperimentForm],
+niceColors: Seq[ String ],
+listTissue: Seq[ String ],
+filteredGeneList: Seq[ String ],
+)(implicit request: play.mvc.Http.Request, messages: play.i18n.Messages)
+
+@import play.mvc.Http.Request
+@import helper._
+
+@main("TOTEM - Results") {
+@header()
+
+
+<div class="container">
+ <div class="cuerpo">
+	  <div class="row">
+	  
+	    <!-- SVG, download and change color-->
+	    <div class="col-sm-6">
+	      <h2>Colored Image</h2>
+	      <div id="svg_container">
+		  	<img id="image_svg" src="/totem/getImageSVG/@experimentID/@colorSVG" class="img-fluid" />
+	      </div>
+			  
+		  <div class="row">    
+		   <div class="col-sm-6">
+	        @helper.form(action = routes.TotemBrowser.updateOutputExperiment()) {
+		      @CSRF.formField
+			
+			  @select(
+		        formulario("colorSVG"),
+		        options = niceColors.map( color => color -> color  ),
+		        '_label -> "Select an alternative color", 
+		        '_default -> "-- change Color --"
+		      )
+		    }
+		    </div>
+		    <div id="download_svg" class="col-sm-6">
+	          <a href="/totem/getImageSVG/@experimentID/@colorSVG" download>Download as png</a>
+	        </div>
+	        
+		  </div> 
+	    </div>
+	    
+	    <!--  barplot + filtered genes -->
+	    <div class="col-sm-6">
+	      <h2>Enrichment values for</h2>
+	      @queryName
+	      
+	      <div id="barplot_container">	          
+		    <img id="image_barplot" src="/totem/getImageBarplot/@experimentID/@colorBarplot" class="img-fluid" />
+	      </div>
+	       
+	      
+	      <div class="row">    
+		   <div class="col-sm-6">
+	        @helper.form(action = routes.TotemBrowser.updateOutputExperiment()) {
+		      @CSRF.formField
+			
+			  @select(
+		        formulario("colorBarplot"),
+		        options = niceColors.map( color => color -> color  ),
+		        '_label -> "Select an alternative color", 
+		        '_default -> "-- change Color --"
+		         
+		      )
+		    }
+		    </div>
+		    <div id="download_barplot">
+	          <a href="/totem/getImageBarplot/@experimentID/@colorBarplot" download>Download as png</a>
+	        </div>
+	      </div>
+		    
+		  <div class="space"></div>
+		  <h2> Tissue-specific genes </h2>		  
+		  @helper.form(action = routes.TotemBrowser.updateOutputExperiment()) {
+		    @CSRF.formField
+			
+		    @select(
+		      formulario("selectedTissue"),
+		      options = listTissue.map( tissue => tissue -> tissue  ),
+		      '_label -> "Show genes specific of...", '_default -> "-- Select tissue --"
+		    )			   
+		  }		    
+		  <textarea id="tissue_genes" rows="4" style="width: 100%">Tissue-specific genes</textarea>
+		    
+		  <div class="space"></div>
+		  <h2> No tissue-specific genes </h2>
+		  <p>Genes from your query that are not specifically expressed in any tissue</p>
+		  <textarea id="no_tissue_genes" rows="4" style="width: 100%">No tissue-specific genes</textarea>
+		    
+		  <div class="space"></div>
+		  <h2> Genes not found </h2>
+		  <p>Genes from your query not found in the selected experiment data</p>		    
+		  <textarea id="genes_not_found" rows="4" style="width: 100%">Genes not found</textarea>
+		    
+	    </div> 
+	  
+	  </div>
+ </div>
+</div>
+
+	
+<script type="module">
+
+import { Spinner } from '@routes.Assets.versioned("javascripts/spin.js")';
+
+var opts = {
+  lines: 13, // The number of lines to draw
+  length: 38, // The length of each line
+  width: 17, // The line thickness
+  radius: 45, // The radius of the inner circle
+  scale: 0.5, // Scales overall size of the spinner
+  corners: 1, // Corner roundness (0..1)
+  color: '#00f900', // CSS color or array of colors
+  fadeColor: 'transparent', // CSS color or array of colors
+  speed: 1, // Rounds per second
+  rotate: 0, // The rotation offset
+  animation: 'spinner-line-fade-quick', // The CSS animation name for the lines
+  direction: 1, // 1: clockwise, -1: counterclockwise
+  zIndex: 2e9, // The z-index (defaults to 2000000000)
+  className: 'spinner', // The CSS class to assign to the spinner
+  top: '50%', // Top position relative to parent
+  left: '50%', // Left position relative to parent
+  shadow: '0 0 1px transparent', // Box-shadow for the lines
+  position: 'absolute' // Element positioning
+};
+
+
+  $("#colorSVG").on('change', function() {
+
+	var expId = '@Html(experimentID)';	
+	var newColorSVG = $(this).find('option:selected').text();
+	
+	var svgurl = '<img src=\"/totem/getImageSVG/' + expId + '/' + newColorSVG + '\" id=\"image_svg\" class=\"img-fluid\"/>'	              
+    console.log( 'SVG_URL: ' + svgurl);
+	$("#svg_container").html( svgurl );
+	
+	start_spin_svg();
+	
+	var svgdownload = '<a href=\"/totem/getImageSVG/' + expId + '/' + newColorSVG + '\" download>Download as png</a>'	              
+    console.log( 'SVG_DL: ' + svgdownload);
+	$("#download_svg").html( svgdownload );
+	
+  });
+
+
+  $("#colorBarplot").on('change', function() {
+
+	var expId = '@Html(experimentID)';
+	var newColorBarplot = $(this).find('option:selected').text();
+	
+	var barploturl = '<img src=\"/totem/getImageBarplot/' + expId + '/' + newColorBarplot + '\" id=\"image_barplot\" class=\"img-fluid\"/>'	              
+    console.log( 'BAR_URL: ' + barploturl);
+	$("#barplot_container").html( barploturl );
+	
+	start_spin_barplot();
+	
+	var barplotdownload = '<a href=\"/totem/getImageBarplot/' + expId + '/' + newColorBarplot + '\" download>Download as png</a>'	              
+    console.log( 'BAT_DL: ' + barplotdownload);
+	$("#download_barplot").html( barplotdownload );
+	
+  });
+
+  $("#selectedTissue").on('change', function() {
+
+	var expId = '@Html(experimentID)';
+	var tissue = $(this).find('option:selected').text();
+	
+	
+	$.getJSON( '/totem/getGenesFromTissue/' + expId + '/' + tissue, function( genesJSON ) {
+      	console.log( 'Genes: ' + genesJSON);
+      	$("#tissue_genes").html("");
+    	
+      	$.each(genesJSON, function(i, field){
+	      
+	      $("#tissue_genes").append( field + "\n" );
+	    });
+    
+      });
+      
+
+  });
+  
+  var barplot_spinner = null;
+  var svg_spinner = null;
+  
+  $('barplot_container').ready(function() {
+  
+	console.log( 'barplot_container ready' );
+  
+    start_spin_barplot();
+    
+   });
+   
+
+$('svg_container').ready(function() {
+    console.log( 'svg_container ready' );
+    
+    start_spin_svg();
+       
+});
+
+function start_spin_svg() {
+     
+     var svg_target = document.getElementById('svg_container');
+     if(svg_spinner == null) {
+          svg_spinner = new Spinner(opts).spin(svg_target);
+     } else {
+          svg_spinner.spin(svg_target);
+     }
+     
+     var svg_img = $("#image_svg");
+    if ( svg_img.complete ) {
+    	stop_spin_svg();
+	} else {
+	    $(svg_img).bind('load', stop_spin_svg);
+	}
+}
+
+function start_spin_barplot() {
+
+   var barplot_target = document.getElementById('barplot_container');   
+    if(barplot_spinner == null) {
+          barplot_spinner = new Spinner(opts).spin(barplot_target);
+    } else {
+          barplot_spinner.spin(barplot_target);
+    }
+    
+    var barplot_img = $("#image_barplot");
+    if ( barplot_img.complete ) {
+    	stop_spin_barplot();
+	} else {
+	    $(barplot_img).bind('load', stop_spin_barplot);
+	}
+}
+
+ 
+function stop_spin_svg() {
+	console.log( 'stop_spin_svg ' );
+   	svg_spinner.stop(this);   
+}
+
+function stop_spin_barplot() {
+	console.log( 'stop_spin_barplot ' );
+   	barplot_spinner.stop(this);   
+}
+
+$( document ).ready(function() {
+
+	var expId = '@Html(experimentID)';
+	
+    $.getJSON( '/totem/getGenesFromNoTissue/' + expId, function( genesNoTissueJSON ) {
+      	console.log( 'No Tissue Genes: ' + genesNoTissueJSON);
+      	$("#no_tissue_genes").html("");
+    	
+      	$.each(genesNoTissueJSON, function(i, field){
+	      
+	      $("#no_tissue_genes").append( field + "\n" );
+	    });
+    
+      });
+	
+	$.getJSON( '/totem/getGenesNotFound/' + expId, function( genesNotFoundJSON ) {
+      	console.log( 'Not Found Genes: ' + genesNotFoundJSON);
+      	$("#genes_not_found").html("");
+    	
+      	$.each(genesNotFoundJSON, function(i, field){
+	      
+	      $("#genes_not_found").append( field + "\n" );
+	    });
+    
+      });
+
+});
+
+
+</script>
+
+</br>
+  
+@footer()
+
+
+}

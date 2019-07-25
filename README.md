@@ -1,2 +1,2 @@
 # totem
-TOTEM - A webTOol for Tissue EnrichMent on gene lists
+TOTEM - A web TOol for Tissue EnrichMent on gene lists

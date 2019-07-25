@@ -1,0 +1,140 @@
+@(
+experimentos: Seq[ ExperimentData ],
+formulario: play.data.Form[ExperimentForm],
+mapDescripciones: String,
+mapImagenes: String,
+)(implicit request: play.mvc.Http.Request, messages: play.i18n.Messages)
+
+@import play.mvc.Http.Request
+@import helper._
+
+@main("TOTEM - Input selection") {
+@header()
+
+<div class="container">
+ <div class="cuerpo">
+
+  <div class="row">
+    <div class="col-sm-6"> 
+	@helper.form(action = routes.TotemBrowser.generateResults()) {
+	  @CSRF.formField
+	
+	  <div class="col-12">
+	  <h2>Select your experiment</h2>
+	  @select(
+	   formulario("experimentID"),
+	   options = experimentos.map( experiment => experiment.experimentID -> experiment.experimentID  ),
+	   '_default -> "-- Select experiment --",	   
+	   '_label -> ""
+	  )
+	  </div>
+    </div>	  
+    
+    <div class="col-sm-6">
+	  <div class="col-12">
+	  <h2>Name your query</h2> 
+	  @helper.textarea(formulario("queryName"), 
+	  	'_label -> "User label to identify this query",
+	  	'rows -> 1,
+	  	'class -> "col-12"
+      )
+	  </div>
+	</div>    
+  </div>  
+  
+  <div class="row">
+    <div class="col-sm-6"> 
+	  
+	  <div class="col-12">
+	  <h2>Description</h2>
+      <div id="descripcion" class="exp_desc">-- experiment description --</div>
+	  </div>
+	  
+	  <div class="col-12">
+	  <br/>
+	  <h2>Image</h2>
+      <div id="imagen" class="input_svg">-- empty image --</div>
+	  </div>
+	  	  
+    </div>
+    
+    <div class="col-sm-6"> 
+	  
+	  <div class="col-12">
+	  <h2>Gene List</h2>
+	  @helper.textarea(formulario("geneList"), 
+	  	'_label -> "Copy your genes here",
+	  	'rows -> 5,
+	  	'class -> "col-12 exp_genelist automarkup"
+	  	)
+	  </div>
+  
+       <button id="submit_results" class="btn btn-lg btn-success btn-block" type="submit" disabled>
+		 Show Results
+	   </button>
+	  
+	</div>
+	 
+  </div>
+	  
+    }
+
+ </div>  
+</div> 
+  
+<script>
+  
+    var jsonmapDesc = ' @Html(mapDescripciones) ';
+    var jsonmapImg  = ' @Html(mapImagenes) ';
+  	var mapDescripciones = $.parseJSON( jsonmapDesc );
+  	var mapImagenes      = $.parseJSON( jsonmapImg ); 
+  
+    $("#experimentID").on('change', function() {
+    
+      var expID = $(this).find('option:selected').text();
+
+      $("#descripcion").html( '<span>' + mapDescripciones[ expID ] + '</span>');
+      
+      var svgurl = "@routes.Assets.versioned("images/experiments/")" + expID + '/' + mapImagenes[ expID ];
+      //console.log( 'SVG_URL: ' + svgurl);
+      $("#imagen").html( '<img src=\"' + svgurl + '\" class=\"img-fluid\"/>');
+      
+      $.getJSON( '/totem/exampleGenes/' + expID, function(exampleJSON) {
+      	  console.log( 'Example: ' + exampleJSON);
+     	  $("#geneList").html("");
+     	
+        $.each( exampleJSON, function(i, field) {
+	        $("#geneList").append( field + " " );
+	      });
+
+      }); 
+
+   	  $("#submit_results").prop('disabled', false);
+      
+    });
+    
+  
+  // select all when a textarea receives focus  
+  $('textarea.automarkup').focus(function() {
+    $this = $(this);
+    
+    $this.select();
+    
+    window.setTimeout(function() {
+        $this.select();
+    }, 1);
+
+    // Work around WebKit's little problem
+    $this.mouseup(function() {
+        // Prevent further mouseup intervention
+        $this.unbind("mouseup");
+        return false;
+    });
+  });
+   
+</script>
+  
+</br>
+  
+@footer()
+}

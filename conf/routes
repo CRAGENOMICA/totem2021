@@ -1,0 +1,24 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+GET     /totem                           	controllers.TotemBrowser.index
+GET     /totem/                          	controllers.TotemBrowser.index
+GET		/totem/select				controllers.TotemBrowser.inputSelection(request: Request )
+POST	/totem/select				controllers.TotemBrowser.generateResults( request: Request )
+GET	/totem/results				controllers.TotemBrowser.generateResults( request: Request )
+GET	/totem/about				controllers.TotemBrowser.aboutTotemBrowser( request: Request )
+
+GET	/totem/exampleGenes/:id			controllers.TotemBrowser.getExampleGenes( id: String )
+
+POST	/totem/updateOutputExperiment		controllers.TotemBrowser.updateOutputExperiment( request: Request )
+
+GET	/totem/getImageSVG/:id/:color		controllers.TotemBrowser.getImageSVG( id: String, color: String )
+GET	/totem/getImageBarplot/:id/:color	controllers.TotemBrowser.getImageBarplot( id: String, color: String )
+GET	/totem/getGenesFromTissue/:id/:tissue		controllers.TotemBrowser.getGenesFromTissue( id: String, tissue: String )
+GET	/totem/getGenesFromNoTissue/:id		controllers.TotemBrowser.getGenesFromNoTissue( id: String )
+GET	/totem/getGenesNotFound/:id		controllers.TotemBrowser.getGenesNotFound( id: String )
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /totem/assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

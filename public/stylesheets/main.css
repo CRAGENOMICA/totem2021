@@ -1,0 +1,68 @@
+
+
+.cuerpo {
+	
+	padding-left: 24px;
+    padding-right: 24px;
+
+}
+
+.input_svg {
+	align-content: flex-start;
+	background: transparent;
+}
+
+.exp_desc {
+	background: transparent;
+}
+
+.exp_genelist {
+	background: transparent;
+}
+
+
+.titulo {
+	font-size: 40px;
+	font-weight: bold;
+}
+.subtitulo {
+	font-size: 28px;
+}
+.botonera {
+	display: flex;
+	justify-content: space-between;
+	font-size: 21px;
+}
+
+.headerJumbo {
+   padding: 0px;
+   padding-top: 30px;
+   padding-left: 12px;
+   padding-right: 12px;
+   margin-top: 0px;
+   margin-bottom: 30px;
+   font-size: 32px;
+   font-weight: 200;
+  /* line-height: 2.1428571435; */
+   color: inherit;
+   background-color: #00C0A3;
+   
+   background-image: linear-gradient(to right, rgba(68, 214, 44, 0.5), rgba(0, 192, 163, 0.5));
+
+   color: #EBEAEA;
+}
+.headerTotemBanner {
+	
+   padding: 0px;
+   margin: 0px;
+   height:160px;
+   width: 100%;  
+
+   background-image: url( "/totem/assets/images/totem_banner_trans.png");
+   background-repeat: no-repeat;
+   background-size: contain;
+}
+
+.space { margin:0; padding:0; height:14px; } 
+
+.responsive-image {  width: 100%;  height: auto; } 

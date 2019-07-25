@@ -1,0 +1,11 @@
+logs
+project/project
+project/target
+target
+tmp
+dist
+.cache
+conf/experiments/*/scala-2.12
+conf/experiments/*/streams
+.Rhistory
+.DS_Store
