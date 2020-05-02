@@ -1,0 +1,19 @@
+experiment_config:
+  experiment_id:  Arabidopsis_root_SingleCell_SOFT
+  experiment_name:  Arabidopsis root SingleCell SOFT threshold
+  experiment_description:
+    Arabidopsis root scRNAseqs co-expression network - SOFT threshold.<br/>
+    Single Cell sequencing data retrieved from 
+    <a href=http://www.plantphysiol.org/content/179/4/1444.long>Ryu et al., 2019;</a>
+    <a href=http://www.plantcell.org/content/31/5/993.long>Jean-Baptiste et al., 2019</a>
+    and <a href=https://www.ncbi.nlm.nih.gov/pubmed/31091459>Shulse et al., 2019</a>.<br/>
+    Raw gene counts data was pooled and filtered out the low count genes. 
+    Then a weighted co-expression network was built.
+    Definition of tissue-specific genes was according to their co-expression with well known tissue markers.<br/>
+    In this dataset, the TOP 200 genes showing the highest co-expression with a particular tissue marker are considered to be tissue-specific.<br/>
+    In the tissue selector on results page, user&#39;s genes are prompted ranked.
+    The closest gene (co-expression) to the selected tissue marker is shown first.<br/>
+    Colors in the image represent the highest enrichment value obtained for a particular tissue.<br/>
+    TOTEM browser uses a two-tailed Fisher&#39;s test in its enrichment function.
+  experiment_datafile:  Arabidopsis_root_SingleCell_SOFT.RData
+  experiment_svgfile:  arabidopsis_root_singlecell.svg
