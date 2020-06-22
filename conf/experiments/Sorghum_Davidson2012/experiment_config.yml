@@ -1,0 +1,16 @@
+experiment_config:
+  experiment_id:  Sorghum_Davison2012
+  experiment_name:  Sorghum bicolor leaves, inflorescence and seeds
+  experiment_description:
+    Sorghum bicolor inflorescence and seeds.<br/>
+    Data from <a href=\"https://onlinelibrary.wiley.com/doi/full/10.1111/j.1365-313X.2012.05005.x\">Davidson et al., 2012.</a><br/>
+    Sorghum bicolor samples were collected from 20 days-old leaves, inflorescences before flower emergence,
+    inflorescence at flower emergence, pistils and anthers while anthesis, seeds 5 and 10 days after pollination and
+    embryos and endosperms from seeds 25 days after pollination. Samples were subjected to RNAseq analysis.<br/>
+    The criteria for the identification of a tissue-enriched gene was
+    a normalized expression in a particular tissue above the 175% of average 
+    expression value accross all tissues.<br/>
+    Genes with no expression were removed. <br/>
+    TOTEM browser uses a two-tailed Fisher&#39;s test in its enrichment function.
+  experiment_datafile: Sorghum_Davison2012.RData
+  experiment_svgfile: sorghum_inflorescence.svg

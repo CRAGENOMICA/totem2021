@@ -1,0 +1,12 @@
+experiment_config:
+  experiment_id:  Arabidopsis_root_LongRadialPatternsIntersect_Brady2007
+  experiment_name:  Arabidopsis root intersection radial and longitudinal patterns
+  experiment_description:
+    Arabidopsis root intersection between radial and longitudinal patterns.<br/>
+    Data from <a href=\"https://science.sciencemag.org/content/318/5851/801.long\">Brady et al., 2007.</a><br/>
+    Intersection between root tissues and root section enriched genes
+    from Arabidopsis roor radial and longitudinal patterns.<br/>
+    TOTEM browser uses a two-tailed Fisher&#39;s test in its enrichment function.<br/>
+    Very low sensitivity, interpret with caution!
+  experiment_datafile:  Arabidopsis_root_LongRadialPatternsIntersect_Brady2007.RData
+  experiment_svgfile:  arabidopsis_root_radial_long.svg

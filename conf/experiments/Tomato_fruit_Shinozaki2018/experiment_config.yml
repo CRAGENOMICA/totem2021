@@ -1,0 +1,15 @@
+experiment_config:
+  experiment_id:  Tomato_fruit_Shinozaki2018
+  experiment_name:  Solanum lycopersicum fruit development
+  experiment_description:
+    Solanum lycopersicum fruit development map.<br/>
+    Data from <a href=\"https://www.nature.com/articles/s41467-017-02782-9\">Shinozaki et al., 2018.</a><br/>
+    Tomato fruits spanning all ripening process from anthesis to comprete ripening were collected
+    and hand-dissected or lasser-microdissected. The different tissues, at different develepment stages and
+    different zones (stem, equatorial and stylar regions) were submited for RNAseq analysis.<br/>
+    The criteria for the identification of a sample-enriched gene was a normalized expression in a particular 
+    sample above the 175% of average normalized expression value accross all samples.<br/>
+    SVG image only represents equatorial regions of tomato fruit.<br/>
+    TOTEM browser uses a two-tailed Fisher&#39;s test plus Benjamini-Hochberg multiple-testing correction in this enrichment function.
+  experiment_datafile: Tomato_fruit_Shinozaki2018.RData
+  experiment_svgfile: tomato_fruit.svg
