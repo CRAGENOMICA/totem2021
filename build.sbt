@@ -2,7 +2,7 @@ name := """TOTEM"""
 organization := "com.crag"
 maintainer := "gonzalo.vera@cragenomica.es"
 
-version := "1.0"
+version := "1.2"
 
 lazy val root = (project in file(".")).enablePlugins(PlayJava)
 

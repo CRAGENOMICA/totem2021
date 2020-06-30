@@ -1,5 +1,5 @@
 experiment_config:
-  experiment_id:  Sorghum_Davison2012
+  experiment_id:  Sorghum_Davidson2012
   experiment_name:  Sorghum bicolor leaves, inflorescence and seeds
   experiment_description:
     Sorghum bicolor inflorescence and seeds.<br/>
@@ -12,5 +12,5 @@ experiment_config:
     expression value accross all tissues.<br/>
     Genes with no expression were removed. <br/>
     TOTEM browser uses a two-tailed Fisher&#39;s test in its enrichment function.
-  experiment_datafile: Sorghum_Davison2012.RData
+  experiment_datafile: Sorghum_Davidson2012.RData
   experiment_svgfile: sorghum_inflorescence.svg
