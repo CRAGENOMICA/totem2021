@@ -1,0 +1,18 @@
+experiment_config:
+  experiment_id:  Arabidopsis_root_SingleCell
+  experiment_name:  Arabidopsis root SingleCell
+  experiment_description:
+    Arabidopsis root scRNAseqs integration.<br/>
+    Single Cell sequencing data retrieved and integrated from Arabidopsis root single cell atlases described on <br/>
+    <a href=https://www.sciencedirect.com/science/article/pii/S1534580719301455?via%3Dihub>Denyer et al., 2019;</a> <br/>
+    <a href=http://www.plantphysiol.org/content/179/4/1444.long>Ryu et al., 2019;</a> <br/>
+    <a href=http://www.plantcell.org/content/31/5/993.long>Jean-Baptiste et al., 2019</a> <br/>
+    <a href=https://www.biorxiv.org/content/10.1101/2020.06.29.178863v1>Shahan., 2020</a> <br/>
+    <a href=https://www.sciencedirect.com/science/article/pii/S2211124719305273?via%3Dihub>Shulse et al., 2019</a> <br/>
+    and <a href=https://www.science.org/doi/10.1126/science.aay4970>Wendrich et al., 2020</a> <br/>
+    Raw data from experiments were pooled a analyzed together filtering out low count genes. 
+    43 different cell populations were identified by a combination of (i) Supervised analysis of markers genes from Brady et al., 2007 and from a custom list of experimentally-tested genes with tissue-specific expression and (ii) Pseudotime analysis to obtain sub-tissues in different developmental stages. Gene markers from these 43 cell populations were obtained with approaches described elsewhere.<br/>
+    Colors in the image represent the enrichment value obtained for a particular tissue/cell population.<br/>
+    TOTEM browser uses a two-tailed Fisher&#39;s test as enrichment function.
+  experiment_datafile:  Arabidopsis_root_SingleCell.RData
+  experiment_svgfile:  Arabidopsis_root_SingleCell.svg
